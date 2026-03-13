@@ -64,4 +64,3 @@ PM2.5 range: **6.0 – 997.5 µg/m³** · AQI computed using **India NAQI formul
 
 ---
 
-Built for **India Innovates 2026** · Team VAYU
