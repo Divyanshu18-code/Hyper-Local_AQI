@@ -21,7 +21,7 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/vayu-team/aqi-dashboard.git
+https://github.com/Divyanshu18-code/Hyper-Local_AQI.git
 cd aqi-dashboard
 pip install -r requirements.txt
 python aap.py
