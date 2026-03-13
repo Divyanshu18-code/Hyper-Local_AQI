@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AQI Watch — Hyper-Local Pollution Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="live-dot"></span>
+    🌬️ AQI Watch — Ghaziabad
+  </div>
+  <div class="nav-right">
+    <span class="nav-badge">ML-Powered</span>
+    <span id="clock" class="nav-clock">--:--:-- IST</span>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- SUMMARY STATS -->
+  <div class="stats-row" id="summary-stats">
+    <div class="stat-card">
+      <div class="stat-label">City Avg AQI</div>
+      <div class="stat-value" id="stat-avg" style="color:#d97706">—</div>
+      <div class="stat-sub" id="stat-wards">— wards tracked</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Critical Wards</div>
+      <div class="stat-value" id="stat-critical" style="color:#dc2626">—</div>
+      <div class="stat-sub">AQI above 300</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Improving</div>
+      <div class="stat-value" id="stat-improving" style="color:#16a34a">—</div>
+      <div class="stat-sub">AQI falling</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Population at Risk</div>
+      <div class="stat-value" id="stat-pop" style="color:#7c3aed">—</div>
+      <div class="stat-sub">In wards AQI > 200</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: Ward List -->
+    <div class="panel">
+      <div class="panel-title">📍 Ward Rankings</div>
+      <div id="ward-list">
+        <div class="loading">Loading ward data…</div>
+      </div>
+    </div>
+
+    <!-- CENTER: Detail Panel -->
+    <div class="panel detail-panel">
+      <div class="panel-title">📊 Ward Detail</div>
+      <div id="detail-content">
+        <div class="empty-state">← Click a ward to view details</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Sidebar -->
+    <div class="sidebar">
+
+      <!-- Source Chart -->
+      <div class="panel">
+        <div class="panel-title">🤖 ML Source Detection</div>
+        <canvas id="sourceChart" height="160"></canvas>
+        <div class="ml-meta">Model: XGBoost + LSTM &nbsp;·&nbsp; Confidence: ~91%</div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="panel">
+        <div class="panel-title">🔔 Live Alerts</div>
+        <div id="alerts">
+          <div class="alert-item sev-critical">
+            <div class="alert-dot" style="background:#dc2626"></div>
+            <div>
+              <div class="alert-msg">Ward 22 AQI 412 — industrial discharge detected</div>
+              <div class="alert-time">2m ago · Lohia Nagar</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot" style="background:#d97706"></div>
+            <div>
+              <div class="alert-msg">Biomass burning cluster identified in Raj Nagar</div>
+              <div class="alert-time">14m ago · Ward 15</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot" style="background:#eab308"></div>
+            <div>
+              <div class="alert-msg">Construction dust violation — Sector 12 flagged</div>
+              <div class="alert-time">31m ago · Vasundhara</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot" style="background:#16a34a"></div>
+            <div>
+              <div class="alert-msg">AQI improving after traffic diversion — Sector 62</div>
+              <div class="alert-time">1h ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='chart.js') }}"></script>
+</body>
+</html>
